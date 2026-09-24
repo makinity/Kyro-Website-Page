@@ -1,0 +1,75 @@
+services:
+  - type: web
+    name: kyropad-website
+    runtime: php
+    region: singapore     # closest to Philippines
+    plan: starter
+
+    buildCommand: |
+      composer install --no-dev --optimize-autoloader
+      npm install --legacy-peer-deps
+      npm run build
+      php artisan config:cache
+      php artisan route:cache
+      php artisan view:cache
+
+    startCommand: php artisan serve --host=0.0.0.0 --port=$PORT
+
+    envVars:
+      - key: APP_NAME
+        value: KyroPad
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_URL
+        sync: false          # set manually to your Render URL
+      - key: APP_KEY
+        generateValue: true  # Render auto-generates a secure key
+      - key: APP_TIMEZONE
+        value: Asia/Manila
+
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: 3306
+      - key: DB_DATABASE
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+
+      - key: SESSION_DRIVER
+        value: cookie
+      - key: CACHE_STORE
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+
+      - key: MAIL_MAILER
+        value: smtp
+      - key: MAIL_HOST
+        value: smtp-relay.brevo.com
+      - key: MAIL_PORT
+        value: 587
+      - key: MAIL_USERNAME
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false
+      - key: MAIL_FROM_ADDRESS
+        value: noreply@kyropad.com
+      - key: MAIL_FROM_NAME
+        value: KyroPad
+
+      - key: ADMIN_NAME
+        value: KyroPad Admin
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+
+      - key: VITE_APP_NAME
+        value: KyroPad

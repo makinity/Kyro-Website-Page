@@ -1,0 +1,107 @@
+/* ── Google Fonts ─────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Custom Properties ────────────────────────────────────────────────── */
+@layer base {
+    :root {
+        --bg-primary:     #0d0d0d;
+        --bg-surface:     #111318;
+        --bg-card:        #161926;
+        --border:         #1e2537;
+
+        --accent-cyan:    #00e5ff;
+        --accent-dim:     #00b8cc;
+        --accent-glow:    rgba(0, 229, 255, 0.15);
+
+        --text-primary:   #f0f0f0;
+        --text-muted:     #7a8a9a;
+
+        --font-heading:   'Space Grotesk', sans-serif;
+        --font-body:      'Inter', sans-serif;
+    }
+
+    /* Global dark base */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        font-family: var(--font-body);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-heading);
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+        background: var(--bg-surface);
+    }
+    ::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--accent-dim);
+    }
+
+    /* Selection highlight */
+    ::selection {
+        background-color: rgba(0, 229, 255, 0.25);
+        color: #fff;
+    }
+}
+
+/* ── Reusable Component Utilities ─────────────────────────────────────────── */
+@layer components {
+    /* Glassmorphic card */
+    .glass-card {
+        background: rgba(22, 25, 38, 0.85);
+        border: 1px solid rgba(0, 229, 255, 0.12);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+
+    /* Cyan glow border */
+    .glow-border {
+        border: 1px solid rgba(0, 229, 255, 0.3);
+        box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
+    }
+
+    /* Cyan text glow */
+    .text-glow {
+        text-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+    }
+
+    /* Grid background overlay */
+    .bg-grid {
+        background-image: linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+                          linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+
+    /* Primary CTA button */
+    .btn-primary {
+        @apply inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm
+               bg-kyro-cyan text-kyro-bg transition-all duration-200
+               hover:bg-kyro-cyan-dim hover:shadow-cyan-md active:scale-95;
+    }
+
+    /* Outline CTA button */
+    .btn-outline {
+        @apply inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm
+               border border-kyro-cyan text-kyro-cyan bg-transparent transition-all duration-200
+               hover:bg-kyro-cyan-glow hover:shadow-cyan-sm active:scale-95;
+    }
+}
